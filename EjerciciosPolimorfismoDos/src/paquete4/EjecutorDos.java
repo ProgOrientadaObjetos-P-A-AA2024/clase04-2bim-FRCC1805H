@@ -26,36 +26,37 @@ public class EjecutorDos {
         int narriendo;
         System.out.println("Cuantos arriendos que desea ingresar");
         narriendo = entrada.nextInt();
+        entrada.nextLine(); 
+
         while (contador < narriendo) {
             System.out.println("Tipo de Arriendo \n"
                     + "Ingrese (1) Arriendo Comercial ");
             System.out.println("Ingrese (2) Arriendo Comida ");
             System.out.println("Ingrese (3) Arriendo Sesiones ");
             opcion = entrada.nextInt();
+            entrada.nextLine();
 
             if (opcion == 1) {
                 System.out.println("Ingrese el Nombre y "
                         + "Apellido del Arrendatario");
                 String nombre = entrada.nextLine();
-                entrada.nextLine();
                 System.out.println(" Dijite la Cuota Base ");
                 double cuotaBase = entrada.nextDouble();
                 System.out.println(" Ingrese Valor Fijo Adicional ");
                 double valorAdicionalFijo = entrada.nextDouble();
+                entrada.nextLine(); 
                 ArriendoLocalComercial arriendoComercial
                         = new ArriendoLocalComercial(nombre, cuotaBase);
                 arriendoComercial.establecerValorAdicionalFijo
-                                                (valorAdicionalFijo); // en $
+                                               (valorAdicionalFijo); // en $
 
                 listaArriendos.add(arriendoComercial);
-                entrada.nextLine();
 
             } else {
                 if (opcion == 2) {
                     System.out.println("Ingrese el Nombre y "
                             + "Apellido del Arrendatario");
                     String nombre = entrada.nextLine();
-                    entrada.nextLine();
                     System.out.println(" Dijite la Cuota Base ");
                     double cuotaBase = entrada.nextDouble();
                     System.out.println("Dijite el Valor del Agua ");
@@ -64,21 +65,21 @@ public class EjecutorDos {
                     double valorLuz = entrada.nextDouble();
                     System.out.println("Dijite el Valor del Iva");
                     double valorIva = entrada.nextDouble();
+                    entrada.nextLine(); 
+
                     ArriendoLocalComida arriendoComida
                             = new ArriendoLocalComida(nombre, cuotaBase);
-                    arriendoComida.establecerIva(valorIva); // en porcentaje
+                    arriendoComida.establecerIva(valorIva); 
                     arriendoComida.establecerValorAgua(valorAgua); // en $
                     arriendoComida.establecerValorLuz(valorLuz); // en $
 
                     listaArriendos.add(arriendoComida);
-                    entrada.nextLine();
 
                 } else {
                     if (opcion == 3) {
                         System.out.println("Ingrese el Nombre y "
                                 + "Apellido del Arrendatario");
                         String nombre = entrada.nextLine();
-                        entrada.nextLine();
                         System.out.println(" Dijite la Cuota Base ");
                         double cuotaBase = entrada.nextDouble();
                         System.out.println("Dijite el Valor de las Sillas");
@@ -86,31 +87,33 @@ public class EjecutorDos {
                         System.out.println("Dijite el Valor de las"
                                 + " Amplificaciones");
                         double valorAmplificaciones = entrada.nextDouble();
+                        entrada.nextLine(); 
+
                         ArriendoLocalSesiones arriendoSesiones
                                 = new ArriendoLocalSesiones(nombre, cuotaBase);
                         arriendoSesiones.establecerValorSillas
-                                                          (valorSillas);// en $
+                                                         (valorSillas); // en $
                         arriendoSesiones.establecerValorAmplificacion
                                                 (valorAmplificaciones); // en $
 
                         listaArriendos.add(arriendoSesiones);
-                        entrada.nextLine();
+
                     } else {
                         System.out.println("Error");
                     }
+                    contador = contador + 1;
                 }
-            }
-            contador = contador + 1;
 
+                for (int i = 0; i < listaArriendos.size(); i++) {
+                    listaArriendos.get(i).establecerArriendoMensual();
+                }
+
+                CentroComercial centro = new CentroComercial("La Pradera",
+                        listaArriendos);
+                centro.establecerTotalArriendosBaseMensual();
+                centro.establecerTotalArriendosFinalMensual();
+                System.out.println(centro);
+            }
         }
-        for (int i = 0; i < listaArriendos.size(); i++) {
-            listaArriendos.get(i).establecerArriendoMensual();
-        }
-        
-        CentroComercial centro = new CentroComercial("La Pradera", 
-                listaArriendos);
-        centro.establecerTotalArriendosBaseMensual();
-        centro.establecerTotalArriendosFinalMensual();
-        System.out.println(centro);
     }
 }
